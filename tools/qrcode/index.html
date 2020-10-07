@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>二维码工具</title>
+		<link href="/favicon.ico" rel="Shortcut Icon">
+		<style>
+			body{
+				text-align: center;
+			}
+			table{
+				margin: 1em auto;
+				border: 1px solid #000;
+				padding: 40px;
+			}
+			td{
+			    width: 20px;
+			    height: 20px;
+			    background-color: black;
+			}
+			textarea{
+				width: 40em;
+				height: 18em;
+			}
+			button{
+				margin: 1em;
+			}
+		</style>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div style="margin: 0 auto;width: 900px;">
+			<table cellpadding="0" cellspacing="0">
+			</table>
+		</div>
+		<label>行列数：<input type="number" value="25" id="hls"/><a href="javascript:gen();">生成</a></label>
+		<div>
+			<div>
+				<button onclick="qr_import()">导入</button>
+				<button onclick="qr_export()">导出</button>
+				<button onclick="qr_invert()">反相</button>
+			</div>
+			<textarea id="binstr">1111111011100111101111111100000101011101000100000110111010010010010010111011011101010000110001011101101110101110110110101110110000010011011001010000011111111010101010101111111000000000011100110000000010000011010010111100110111010010110101100001001101100110100100111101111111111111100000000001101101110100101110100101101001011011011001000100100111111100111111111110110010000000010000011110111100110110010111111010110111111000100000000011101111000110101111111010101100101011011100000100011001110001011110111010010111101111101001011101000011101000110111101110100101000110000111010000010000100100100011101111111010110010101011111</textarea>
+		</div>
+		
+		
+		<script>
+			var color_black = "rgb(0, 0, 0)";
+			var color_white = "rgb(255, 255, 255)";
+			var css_bgcolor = "background-color";
+		    function gen(size){
+				$("table").html("");
+				var hls = size?size:$("#hls").val();
+		        var html = "";
+		        for (var i = 0;i < hls;i++){
+		            html += "<td></td>";
+		        }
+		        html = "<tr>"+html+"</tr>";
+		        for (var i = 0;i < hls;i++){
+		            $("table").append(html);
+		        }
+		        $("td").each(function(){
+					$(this).hover(function(e){
+						if(e.which == 1){
+							if($(this).css(css_bgcolor) === color_white){
+							    $(this).css(css_bgcolor,color_black);
+							} else {
+							    $(this).css(css_bgcolor,color_white);
+							}
+						}
+					},function(){});
+		            $(this).click(function(){
+		                if($(this).css(css_bgcolor) === color_white){
+		                    $(this).css(css_bgcolor,color_black);
+		                } else {
+		                    $(this).css(css_bgcolor,color_white);
+		                }
+		            });
+		        });
+		    }
+			function qr_import(){
+				var binstr = $("#binstr").val().replace(/\ +/g,"").replace(/[\r\n]/g,"");
+				var size = Math.sqrt(binstr.length);
+				if(size.toString().indexOf('.') < 0){
+					gen(size);
+					var tds = $("td");
+					$(binstr.split("")).each(function(i,val){
+						if(val==0){
+							$(tds[i]).css(css_bgcolor,color_black);
+						}else{
+							$(tds[i]).css(css_bgcolor,color_white);
+						}
+					});
+				}else{
+					alert("导入数据长度必须是整数的平方");
+				}
+			}
+			function qr_export(){
+				var binstr = "";
+				$("td").each(function(){
+					if($(this).css(css_bgcolor)==color_white){
+						binstr += "1";
+					}else{
+						binstr += "0";
+					}
+				});
+				$("#binstr").val(binstr);
+			}
+			function qr_invert(){
+				$("td").each(function(){
+					if($(this).css(css_bgcolor)==color_white){
+						$(this).css(css_bgcolor,color_black);
+					}else{
+						$(this).css(css_bgcolor,color_white);
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
+
+

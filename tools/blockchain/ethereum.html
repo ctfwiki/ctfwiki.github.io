@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>智能合约</title>
+<style>
+	body{ text-align:center}
+	a{
+		display: block;
+		text-decoration: none;
+		color: #333;
+		border: solid #666 1px;
+		margin-top: 20px;
+		padding: 2px 4px;
+	}
+	a:hover{
+		color: #fff;
+		background-color: #007BFF;
+	}
+	.main{
+		margin: 0 auto;
+		padding-top: 50px;
+		width: 800px;
+		min-height: 500px;
+	}
+	#address{
+		width: 320px;
+	}
+</style>
+</head>
+<body>
+	<div class="main">
+		<div>
+			<lable>合约地址：<input type="text" id="address" value="0x30d0a604d8c90064a0a3ca4beeea177eff3e9bcd"/></lable>
+		</div>
+		<div style="margin-top:30px">
+			<a href="javascript:decompiler(1);">反编译合约代码1</a>
+			<a href="javascript:decompiler(2);">反编译合约代码2</a>
+			<a href="https://remix.ethereum.org/" target="_blank">在线IDE</a>
+			<a href="https://vintage.myetherwallet.com/" target="_blank">在线发送以太币</a>
+			
+			<a href="https://solidity.readthedocs.io/" target="_blank">Solidity文档</a>
+			<a href="https://github.com/ethereum/web3.js" target="_blank">web3 JS</a>
+			<a href="https://github.com/ethereumjs" target="_blank">web3 NodeJS</a>
+			<a href="https://github.com/ethereum/web3.py" target="_blank">web3 Python</a>
+		</div>
+	</div>
+	<script>
+		function decompiler(id){
+			var address = document.getElementById("address").value;
+			console.log(address);
+			if(id===1){
+				window.open("https://ethervm.io/decompile/ropsten/"+address.trim(), "_blank");
+			}else{
+				window.open("https://ropsten.etherscan.io/bytecode-decompiler?a="+address.trim(), "_blank");
+			}
+		}
+	</script>
+</body>
+</html>

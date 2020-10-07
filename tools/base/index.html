@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Base编码解码全家桶</title>
+		<style>
+			hr{border: 1px dashed #CCC;}
+			#input_value{
+				width: 830px;
+				/* background-color: #B8DAFF; */
+				margin: 0 auto;
+			}
+			#input_value textarea{
+				width: 830px;
+				height: 260px;
+				box-sizing: border-box;
+				border: 1px #ccc solid;
+				padding: 1%;
+				resize: none;
+				outline: none;
+				font-size: 1em;
+				flex-direction: column;
+			}
+			#input_value #options label{
+				height: 40px;
+				line-height: 40px;
+				font-size: 14px;
+				/* border: 1px solid #000; */
+				margin: 2px;
+			}
+		</style>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../assets/vue.js"></script>
+		<script type="text/javascript" src="Base16.js"></script>
+		<script type="text/javascript" src="Base32.min.js"></script>
+		<script type="text/javascript" src="base64.min.js"></script>
+	</head>
+	<body>
+		<div id="input_value">
+			<textarea v-model="message"></textarea>
+			<div id="options">
+				<div>
+					<label><input type="radio" value="encode" v-model="fun" checked="checked"/>编码</label>
+					<label><input type="radio" value="decode" v-model="fun" />解码</label>
+					<label><input type="checkbox" name="hex_decode" v-bind:disabled="reshex"/>解密结果以16进制显示</label>
+				</div>
+				<hr>
+				<div>
+					<label><input type="radio" value="16" v-model="base" />Base16</label>
+					<label><input type="radio" value="32" v-model="base" />Base32</label>
+					<label><input type="radio" value="36" v-model="base" />Base36</label>
+					<label><input type="radio" value="58" v-model="base" />Base58</label>
+					<label><input type="radio" value="62" v-model="base" />Base62</label>
+					<label><input type="radio" value="64" v-model="base" checked="checked"/>Base64</label>
+					<label><input type="radio" value="85" v-model="base" />Base85</label>
+					<label><input type="radio" value="91" v-model="base" />Base91</label>
+					<label><input type="radio" value="92" v-model="base" />Base92</label>
+					<label><input type="radio" value="128" v-model="base" />Base128</label>
+				</div>
+			</div>
+			<textarea v-model="baseMessage" readonly="readonly"></textarea>
+		</div>
+		
+		<script type="text/javascript">			
+			new Vue({
+				el: '#input_value',
+				data: {
+					message: 'Base All In One!',
+					fun: 'encode',
+					base: 64,
+					reshex: 'disabled'
+				},
+				computed: {
+					baseMessage: function () {
+						try{
+							console.log(this.fun)
+							// console.log(this.base)
+							this.reshex = !(this.fun=='decode' && this.base==64);
+							if(this.fun=='encode'){
+								if(this.base==16){
+									return Base16.Encode(this.message);
+								}else if(this.base==32){
+									return b32encode(this.message);
+								}else if(this.base==36){
+									
+								}else if(this.base==58){
+									
+								}else if(this.base==62){
+									
+								}else if(this.base==64){
+									return Base64.encode(this.message);
+								}else if(this.base==85){
+									
+								}else if(this.base==91){
+									
+								}else if(this.base==92){
+									
+								}else if(this.base==128){
+									
+								}
+							}else{
+								if(this.base==16){
+									return Base16.Decode(this.message);
+								}else if(this.base==32){
+									return b32decode(this.message);
+								}else if(this.base==36){
+									
+								}else if(this.base==58){
+									
+								}else if(this.base==62){
+									
+								}else if(this.base==64){
+									return Base64.decode(this.message);
+								}else if(this.base==85){
+									
+								}else if(this.base==91){
+									
+								}else if(this.base==92){
+									
+								}else if(this.base==128){
+									
+								}
+							}
+						}catch(e){
+							console.warn(e) ;
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+/* 样式重置 */
+*{margin:0;padding:0;}p{margin:0;}li{list-style-type:none;}a{color: #000;}a:hover{text-decoration: none;}
+/* 滚动条 */
+html::-webkit-scrollbar{
+  height: 4px;
+  width: 4px;
+}
+html::-webkit-scrollbar-track-piece{
+	background: transparent;
+}
+html::-webkit-scrollbar-thumb{
+	background: #33bbff;
+	cursor: pointer;
+	border-radius: 2px;
+}
+html::-webkit-scrollbar-thumb:hover{
+	background: #55ddff;
+}
+/* 其他 */
+header{
+	width: 100%;
+	height: 40px;
+	position: fixed;
+	float: left;
+	background-color: beige;
+}
+nav{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+nav a{
+	display: block;
+	width: 88px;
+	line-height: 40px;
+	text-align: center;
+	text-decoration: none;
+	float: left;
+}
+nav .search{
+	float: right;
+}
+nav .search input{
+	width: 220px;
+	height: 25px;
+	margin: 5px;
+	text-indent: 0.5em;
+}
+.menu_active{
+	border-bottom: 2px #333 solid;
+}
+section{
+	width: 100%;
+	height: 1200px;
+	float: left;
+	margin-top: 50px;
+}
+footer{
+	width: 100%;
+	height: 50px;
+	float: left;
+}
+#contents{
+	width: 1200px;
+	margin: 0 auto;
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AAEncoder/AADecoder颜表情编码解码</title>
+	<style>
+		button {
+		padding: 6px 8px;
+		line-height: 17px;
+		border-radius: 0;
+		}
+	</style>
+  </head>
+  <body>
+	<h1>AAEncoder/AADecoder</h1>
+	<div>
+		<textarea id="t" placeholder="Enter JavaScript source or emoticons" style="width:50%;height:20em;line-height:130%;" ></textarea>
+		<p>
+		<button id="e" onclick="document.getElementById('t').value=aaencode(document.getElementById('t').value)">编码</button>
+		<button id="d" onclick="document.getElementById('t').value=aadecode(document.getElementById('t').value)">解码</button>
+		<button id="c" onclick="document.getElementById('t').value=''">清空</button>
+		</p>
+	</div>
+	<div>
+		<p>
+			<div>aaencode代码，是将正常的js代码转为好玩的特殊网络表情符号。</div>
+			<div>如: ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻ //*´∇｀*/ ['_']; o=(ﾟｰﾟ) 这样的表情文字.</div>
+			<div>使用本工具即可对这些编码加密的js文件进行简单的解密，让其从难以理解的字符符号或表情符号重新恢复到正常方便阅读的正常文字.</div>
+		</p>
+	</div>
+	<footer>
+		<a target="_blank" href="https://github.com/jamtg/aaencode-and-aadecode">github地址</a>
+	</footer>
+	<script src="aaencode.js"></script>
+	<script src="aadecode.js"></script>
+  </body>
+</html>

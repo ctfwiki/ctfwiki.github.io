@@ -1,3 +1,224 @@
+<!DOCTYPE html>
 <html>
-<h1>测试测试</h1>
+	<head>
+		<meta charset="utf-8">
+		<title>T1M团队主页(临时)</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="style/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<style type="text/css">
+			*{margin:0;padding:0;}p{margin:0;}li{list-style-type:none;}a{color: #000;}a:hover{text-decoration: none;}
+			section{min-height:900px;padding-left:12%;}footer{text-align:center;width: 100%;float: left;}
+			#mask{width:100%;height:100%;left:0;top:0;position:fixed;z-index:999;background:rgba(0,0,0,0.6);color:#FFF;}
+			#mask .mask_box{width:300px;height:100px;position:absolute;left:50%;top:50%;margin-left:-150px;margin-top:-50px;}
+			#mask .mask_box pre{display:block;width:100%;font-size:12px;color:#FF6;text-align:center;}
+			
+			
+			#menu{width:12%;position:absolute;}
+			#menu a{display:block;width:100%;height:40px;line-height:40px;text-align:center;margin-top:5px;background-color:#EEE;border-radius: 5px;}
+			#menu a:hover{background-color: #007BFF;color: #FFF;}
+			.active_menu{background-color: #007BFF !important;color: #EEE !important;}
+			
+			.tool_search{height: 40px;text-align: center;}
+			.tool_search input{width: 250px;height: 30px;margin-top: 6px;text-align: center;}
+			.tool_box{width:192px;height:110px;border-radius:5px;float:left;margin:6px;background-color:#B8DAFF;}
+			.tool_box:hover{-webkit-box-shadow:#ccc 0px 10px 10px;-moz-box-shadow:#ccc 0px 10px 10px;box-shadow:#ccc 0px 10px 10px;}
+			.tool_box .tool_inner{padding:10px 15px 10px 8px;}
+			.tool_box .tool_inner .tool_title{display:block;width:100%;font-size:14px;color:#333;white-space:nowrap;overflow:hidden;}
+			.tool_box .tool_inner hr{margin:3px 0 3px 0;border-top-color:#0BF;}
+			.tool_box .tool_inner .tool_tags{width:100%;height:40px;font-size:12px;color:#FFF;}
+			.tool_box .tool_inner .tool_tags span{float:left;margin:2px;padding:2px;background-color:#8AF;}
+			
+			.constant_table,.tool_download,.practise_online a{
+				margin: 10px;
+				float: left;
+			}
+			.campaign_status{height: 40px;}
+			.campaign_status span{float: left;line-height: 20px;margin-left: 30px;margin-top: 10px;}
+			.campaign_status a{display: block;width: 20px;height: 20px;border: 1px #CCC dashed;float: left;margin-right: 0.5em;}
+			.camp_status0{background-color: #FFF;}
+			.camp_status1{background-color: #FD0;}
+			.camp_status2{background-color: #F50;}
+			.camp_status3{background-color: #0C0;}
+			.camp_status4{background-color: #EEE;}
+			.campaign_list .campaign_info{
+				width: 300px;
+				height: 265px;
+				font-size: 14px;
+				margin: 8px;
+				padding: 5px;
+				border: 1px dashed #CCC;
+				overflow: hidden;
+				float: left;
+			}
+			
+			.link_box{
+				width: 100px;
+				height: 50px;
+				background-color: #7ABAFF;
+				float: left;
+				margin: 10px;
+			}
+			.link_box a{
+				display: block;
+				width: 100%;
+				height: 100%;
+				line-height: 50px;
+				text-align: center;
+				overflow: hidden;
+			}
+			.link_box .blog{
+				color: #CF0;
+			}
+			.link_box .team{
+				color: #FC0;
+			}
+			.link_box .github{
+				color: #0F0;
+			}
+			.link_box .cnblogs{
+				color: #390;
+			}
+			.link_box .group{
+				color: #FFF;
+			}
+		</style>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="script/vue.js"></script>
+		<script src="script/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="script/js.cookie.min.js"></script>
+		<script type="text/javascript" src="tools/base/base64.min.js"></script>
+		<script type="text/javascript" src="tools/md5/md5.min.js"></script>
+	</head>
+	<body>
+		<div id="mask" v-if="check_user">
+			<!-- 未登录用户遮罩层:检查cookie -->
+			<div class="mask_box">
+				<label title="216210928 的群员QQ号">输入QQ号解锁：<input type="text" value="" v-model="qq" @keyup.enter="enter_user"/></label>
+				<pre>{{ message }}</pre>
+			</div>
+		</div>
+		<header>
+			<div class="logo"><!-- 未设计 --></div><div><!-- 一些最新比赛信息滚动播出 --></div><div><!-- 登陆的用户信息 --></div>
+		</header>
+		<aside id="menu">
+			<ul>
+				<li v-for="(m,i) in contents">
+					<a v-on:click="select_menu(i)" v-bind:class="{active_menu: active_name == i}">{{ m }}</a>
+				</li>
+			</ul>
+		</aside>
+		<section id="items">
+			<div class="tool_search" v-if="seen==0">
+				<input name="kw" placeholder="关键词搜索" v-model="tools_screen" v-on:input="screen" />
+			</div>
+			<div class="campaign_status" v-if="seen==4">
+				<span><a class="camp_status0"></a>报名未开始</span>
+				<span><a class="camp_status1"></a>报名中</span>
+				<span><a class="camp_status2"></a>报名结束</span>
+				<span><a class="camp_status3"></a>比赛中</span>
+				<span><a class="camp_status4"></a>比赛结束</span>
+			</div>
+			<div v-for="(m,i) in contents" v-if="seen==i">
+				<online-tool v-if="i==0"
+						v-for="item in online_tool"
+						v-bind:item="item"
+						v-bind:key="item.url"
+				>
+				</online-tool>
+				<constant-table v-if="i==1"
+						v-for="item in constant_table"
+						v-bind:item="item"
+						v-bind:key="item.title"
+				><!-- //TODO: 改造成静态 --></constant-table>
+				<tool-download v-if="i==2"
+						v-for="item in tool_download"
+						v-bind:item="item"
+						v-bind:key="item.name"
+				></tool-download>
+				<practise-online v-if="i==3"
+						v-for="item in practise_online"
+						v-bind:item="item"
+						v-bind:key="item.name"
+				></practise-online>
+				<campaign-list v-if="i==4"
+						v-for="item in campaign_list"
+						v-bind:item="item"
+						v-bind:key="item.name"
+				>
+				</campaign-list>
+				<related-link v-if="i==5"
+						v-for="item in related_link"
+						v-bind:item="item"
+						v-bind:key="item.url"
+				></related-link>
+				<about-us v-if="i==6"></about-us>
+			</div>
+		</section>
+		<footer>
+			<a href="http://www.beian.miit.gov.cn/">冀ICP备19032234号-1</a>
+		</footor>
+		<template id="tool">
+			<div class="tool_box">
+				<div class="tool_inner">
+					<a :href=item.url target="_blank" v-bind:title=item.name class="tool_title">{{ item.name }}</a>
+					<hr>
+					<div class="tool_tags">
+						<span v-for="tag in item.tags" v-bind:style="{background: tag.bgc, color: tag.c}">{{ tag.name }}</span>
+					</div>
+					<!-- <div><a class="">收藏</a><a>访问量</a></div> -->
+				</div>
+			</div>
+		</template>
+		<template id="constant">
+			<div class="constant_table">
+				<a :href=item.url target="_blank" v-bind:title=item.title>{{ item.title }}</a>
+			</div>
+		</template>
+		<template id="download">
+			<div class="tool_download">
+				<a :href=item.url target="_blank" v-bind:title=item.type>{{ item.name }}</a>
+			</div>
+		</template>
+		<template id="practise">
+			<div class="practise_online">
+				<a :href=item.url target="_blank">{{ item.name }}</a>
+			</div>
+		</template>
+		<template id="campaign">
+			<div class="campaign_list">
+				<div class="campaign_info" v-bind:class=('camp_status'+item.date.st)>
+					比赛名名称：{{item.name}}<br>
+					比赛平台连接：<a v-if=item.url :href=item.url target="_blank">点击前往</a><br>
+					比赛类型：{{item.type}}<br>
+					参赛形式(每队最多人数)：{{item.num}}<br>
+					报名开始：{{item.date.s1}}<br>
+					报名截止：{{item.date.e1}}<br>
+					比赛开始：{{item.date.s2}}<br>
+					比赛结束：{{item.date.e2}}<br>
+					报名链接：<a v-if=item.inurl :href=item.inurl target="_blank">点击前往</a><br>
+					其他备注：<a v-html=item.remarks></a><br>
+					<!-- 加水印转发QQ -->
+				</div>
+			</div>
+		</template>
+		<template id="link">
+			<div class="link_box">
+				<!-- 群头像：http://p.qlogo.cn/gh/216210928/216210928/100/ -->
+				<a :href=item.url target="_blank" v-bind:title=item.name+'-'+item.type v-bind:class=item.type>{{ item.name }}</a>
+			</div>
+		</template>
+		<template id="about">
+			<div>
+				<a>随缘更新中~</a>
+				<h2 style="color: #007BFF;">TODO</h2>
+				<ul>
+					<li>1.在线工具代码<a href="https://tools.t1m.club/" target="_blank" style="color: #FF7B00;">本地化</a>。由于部分在线工具并不稳定，说不定什么时候就没了，所以需要把代码“扒下来”防止失效</li>
+					<li>2.对于一些必须搭建后端服务的工具，比如在线php代码运行(反序列化题目等)，提供api接口</li>
+				</ul>
+				<h4>欢迎联系<a href="http://wpa.qq.com/msgrd?v=3&uin=909712710&site=qq&menu=yes" target="_blank" style="color: #F00;">群主</a>参与共同开发，只需要会简单的html/js/css</h4>
+			</div>
+		</template>
+		<script type="text/javascript" src="script/vue-content.js"></script>
+		<script type="text/javascript" src="script/vue-operator.js"></script>
+	</body>
 </html>

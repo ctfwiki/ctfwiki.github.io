@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>核心价值观编码</title>
+    <style>
+		body{
+		    overflow-x: hidden;
+		}
+		header>h2{
+		    text-align: center;
+		}
+		div.content{
+		    display: flex;
+		    flex-direction: row;
+		    justify-content: center;
+		}
+		div>span{
+		    display: flex;
+		    flex-direction: row;
+		    justify-content: center;
+			color: #777;
+			line-height: 24px;
+		}
+		div.content>textarea{
+		    width: 40em;
+		    height: 18em;
+		    margin: 1em;
+		}
+		div.content>.buttons{
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: space-around;
+		}
+		footer>p{
+		    text-align: center;
+		}
+	</style>
+</head>
+<body>
+    <header>
+        <h2>核心价值观编码</h2>
+    </header>
+	<div><span>社会主义核心价值观：富强、民主、文明、和谐；自由、平等、公正、法治；爱国、敬业、诚信、友善</span></div>
+    <div class="content">
+		
+        <textarea id="decoded-area" placeholder="输入待编码内容"></textarea>
+        <div class="buttons">
+            
+                <button id='encode-btn'>编码 &gt;&gt;</button>
+          
+            
+                <button id='decode-btn'>&lt;&lt; 解码</button>
+            
+        </div>
+        <textarea id="encoded-area" placeholder="输入待解码内容"></textarea>
+    </div>
+    <footer>
+        <p>2017年庆祝19大，<a href="https://github.com/sym233/core-values-encoder" target="_blank">github地址</a></p>
+    </footer>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
