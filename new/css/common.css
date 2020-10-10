@@ -1,5 +1,5 @@
 /* 样式重置 */
-*{margin:0;padding:0;}p{margin:0;}li{list-style-type:none;}a{color: #000;}a:hover{text-decoration: none;}
+*{margin:0;padding:0;}p{margin:0;}li{list-style-type:none;}a{color: #000;text-decoration: none;}
 /* 滚动条 */
 html::-webkit-scrollbar{
   height: 4px;
@@ -36,6 +36,11 @@ nav a{
 	text-align: center;
 	text-decoration: none;
 	float: left;
+	transition: all .2s ease-in-out;
+	border-bottom: 2px solid transparent;
+}
+nav a:hover{
+	border-bottom: 2px #3bf solid;
 }
 nav .search{
 	float: right;
@@ -47,7 +52,7 @@ nav .search input{
 	text-indent: 0.5em;
 }
 .menu_active{
-	border-bottom: 2px #333 solid;
+	border-bottom: 2px #3bf solid;
 }
 section{
 	width: 100%;
