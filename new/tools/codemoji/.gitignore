@@ -1,6 +1,0 @@
-/node_modules/
-/untrackbin/
-.tmp
-.DS_Store
-libs/gsap
-/public/*

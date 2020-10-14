@@ -1,4 +1,0 @@
-include "lib/std.wsa"
-
-prints "Hello macro world!\n"
-
