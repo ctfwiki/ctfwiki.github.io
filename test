@@ -1,1 +1,1 @@
-<link href="127.0.0.1:8080/index.php?http://a.css"/>
+<link href="file:///etc/passwd?http://a.css"/>
